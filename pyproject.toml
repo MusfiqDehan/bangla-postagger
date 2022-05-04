@@ -20,7 +20,7 @@ classifiers = [
     "Topic :: Text Processing",
     "Topic :: Text Processing :: Linguistic",
     "Operating System :: OS Independent"]
-packages = [{include="bangla_postaggers"}]
+packages = [{include="bangla_postagger"}]
 
 [tool.poetry.dependencies]
 python = "^3.6"
