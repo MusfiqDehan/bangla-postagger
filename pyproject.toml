@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "bangla-postagger"
+version = "0.1.0"
+description = "A Bangla Parts of Speech Tagger using Bangla-English Alignment"
+authors = ["Md. Musfiqur Rahaman <musfiqur.rahaman@northsouth.edu>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/MusfiqDehan/data-preprocessors"
+repository = "https://github.com/MusfiqDehan/data-preprocessors"
+keywords = ["nlp", "data-preprocessors", "data-preprocessing", "text-preprocessing", "data-science"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Education",
+    "Topic :: Software Development",
+    "Topic :: Communications",
+    "Topic :: Text Processing",
+    "Topic :: Text Processing :: Linguistic",
+    "Operating System :: OS Independent"]
+packages = [{include="bangla_postaggers"}]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+deep-translator = "^1.8.3"
+flair = "^0.11.1"
+spacy = "^3.3.0"
+torch = "^1.11.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
