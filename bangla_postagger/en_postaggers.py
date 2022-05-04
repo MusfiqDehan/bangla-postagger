@@ -4,9 +4,13 @@ This module produce differerent English PoS Taggers for a given sentence.
 
 import nltk
 import spacy
+import en_core_web_sm
 from flair.data import Sentence
 from flair.models import SequenceTagger
 from textblob import TextBlob
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 
 
 # =================================
@@ -47,7 +51,7 @@ def get_spacy_postag_dict(target=""):
     ''' 
     Get spacy pos tags 
     '''
-    nlp = spacy.load("en_core_web_sm")
+    nlp = en_core_web_sm.load()
     target_tokenized = nlp(target)
     spacy_postag_dict = dict((token.text, token.tag_)
                              for token in target_tokenized)
