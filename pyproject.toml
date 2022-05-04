@@ -5,9 +5,9 @@ description = "A Bangla Parts of Speech Tagger using Bangla-English Alignment"
 authors = ["Md. Musfiqur Rahaman <musfiqur.rahaman@northsouth.edu>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/MusfiqDehan/data-preprocessors"
-repository = "https://github.com/MusfiqDehan/data-preprocessors"
-keywords = ["nlp", "data-preprocessors", "data-preprocessing", "text-preprocessing", "data-science"]
+homepage = "https://github.com/MusfiqDehan/bangla-postagger"
+repository = "https://github.com/MusfiqDehan/bangla-postagger"
+keywords = ["nlp", "data-preprocessors", "data-preprocessing", "text-preprocessing", "data-science", "bangla-pos-tagger", "musfiqdehan"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
