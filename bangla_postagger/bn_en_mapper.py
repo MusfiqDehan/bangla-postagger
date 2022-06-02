@@ -177,17 +177,17 @@ def get_flair_postag(source="", target="", model_path="bert-base-multilingual-ca
     for i, j in sorted(align_words):
         mapped_sent_src = []
         punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+        if sent_src[i] in sent_src:
+            if sent_src[i] in punc or sent_tgt[j] in punc:
+                mapped_sent_src.append(sent_src[i])
+                result.append(
+                    f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
+            else:
+                mapped_sent_src.append(sent_src[i])
+                result.append(
+                    f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
 
-        if sent_src[i] in punc or sent_tgt[j] in punc:
-            mapped_sent_src.append(sent_src[i])
-            result.append(
-                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif sent_src[i] in sent_src and sent_src[i] not in mapped_sent_src:
+        if sent_src[i] not in mapped_sent_src:
             result.append(
                 f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
-        else:
-            mapped_sent_src.append(sent_src[i])
-            result.append(
-                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
-
     return result
