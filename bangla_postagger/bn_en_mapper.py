@@ -11,6 +11,9 @@ logging.set_verbosity_error()
 # Get Aligned Words
 # ========================================
 def get_alignment_mapping(source="", target="", model_path="bert-base-multilingual-cased"):
+    """
+    Get Aligned Words
+    """
     model = transformers.BertModel.from_pretrained(model_path)
     tokenizer = transformers.BertTokenizer.from_pretrained(model_path)
 
@@ -67,7 +70,9 @@ def get_alignment_mapping(source="", target="", model_path="bert-base-multilingu
 # Get Word Aligned Mapping
 # ========================================
 def get_word_mapping(source="", target="", model_path="bert-base-multilingual-cased"):
-
+    """
+    Get Word Aligned Mapping Words
+    """
     sent_src, sent_tgt, align_words = get_alignment_mapping(
         source=source, target=target, model_path=model_path)
 
@@ -83,7 +88,9 @@ def get_word_mapping(source="", target="", model_path="bert-base-multilingual-ca
 # Get Word Aligned Mapping
 # ========================================
 def get_word_index_mapping(source="", target="", model_path="bert-base-multilingual-cased"):
-
+    """
+    Get Word Aligned Mapping Index
+    """
     sent_src, sent_tgt, align_words = get_alignment_mapping(
         source=source, target=target, model_path=model_path)
 
@@ -99,7 +106,9 @@ def get_word_index_mapping(source="", target="", model_path="bert-base-multiling
 # Get NLTK PoS Tags
 # ========================================
 def get_nltk_postag(source="", target="", model_path="bert-base-multilingual-cased"):
-
+    """
+    Get NLTK PoS Tags
+    """
     sent_src, sent_tgt, align_words = get_alignment_mapping(
         source=source, target=target, model_path=model_path)
 
@@ -108,10 +117,13 @@ def get_nltk_postag(source="", target="", model_path="bert-base-multilingual-cas
     result = []
 
     for i, j in sorted(align_words):
-        punc = """!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+        punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
+        elif nltk_postag_dict[sent_tgt[j]] is None:
+            result.append(
+                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({nltk_postag_dict[sent_tgt[j]]})')
@@ -123,7 +135,9 @@ def get_nltk_postag(source="", target="", model_path="bert-base-multilingual-cas
 # Get Spacy PoS Tags
 # ========================================
 def get_spacy_postag(source="", target="", model_path="bert-base-multilingual-cased"):
-
+    """
+    Get Spacy PoS Tags
+    """
     sent_src, sent_tgt, align_words = get_alignment_mapping(
         source=source, target=target, model_path=model_path)
 
@@ -132,10 +146,13 @@ def get_spacy_postag(source="", target="", model_path="bert-base-multilingual-ca
     result = []
 
     for i, j in sorted(align_words):
-        punc = """!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+        punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
+        elif spacy_postag_dict[sent_tgt[j]] is None:
+            result.append(
+                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({spacy_postag_dict[sent_tgt[j]]})')
@@ -147,7 +164,9 @@ def get_spacy_postag(source="", target="", model_path="bert-base-multilingual-ca
 # Get Flair PoS Tags
 # ========================================
 def get_flair_postag(source="", target="", model_path="bert-base-multilingual-cased"):
-
+    """
+    Get Flair PoS Tags
+    """
     sent_src, sent_tgt, align_words = get_alignment_mapping(
         source=source, target=target, model_path=model_path)
 
@@ -156,10 +175,13 @@ def get_flair_postag(source="", target="", model_path="bert-base-multilingual-ca
     result = []
 
     for i, j in sorted(align_words):
-        punc = """!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+        punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
+        elif flair_postag_dict[sent_tgt[j]] is None:
+            result.append(
+                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
