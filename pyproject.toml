@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bangla-postagger"
-version = "0.8.0"
+version = "0.9.0"
 description = "A Bangla Parts of Speech Tagger using Bangla-English Alignment"
 authors = ["Md. Musfiqur Rahaman <musfiqur.rahaman@northsouth.edu>"]
 license = "MIT"

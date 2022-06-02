@@ -187,7 +187,7 @@ def get_flair_postag(source="", target="", model_path="bert-base-multilingual-ca
                 result.append(
                     f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
 
-        if sent_src[i] not in mapped_sent_src:
+        if sent_src[i] in sent_src and sent_src[i] not in mapped_sent_src:
             result.append(
                 f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
     return result
