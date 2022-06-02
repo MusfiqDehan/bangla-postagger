@@ -121,9 +121,9 @@ def get_nltk_postag(source="", target="", model_path="bert-base-multilingual-cas
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif nltk_postag_dict[sent_tgt[j]] is None:
+        elif sent_src[i] not in sent_src:
             result.append(
-                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
+                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({nltk_postag_dict[sent_tgt[j]]})')
@@ -150,9 +150,9 @@ def get_spacy_postag(source="", target="", model_path="bert-base-multilingual-ca
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif spacy_postag_dict[sent_tgt[j]] is None:
+        elif sent_src[i] not in sent_src:
             result.append(
-                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
+                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({spacy_postag_dict[sent_tgt[j]]})')
@@ -179,9 +179,9 @@ def get_flair_postag(source="", target="", model_path="bert-base-multilingual-ca
         if sent_src[i] in punc or sent_tgt[j] in punc:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif flair_postag_dict[sent_tgt[j]] is None:
+        elif sent_src[i] not in sent_src:
             result.append(
-                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(UNK)')
+                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
         else:
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
