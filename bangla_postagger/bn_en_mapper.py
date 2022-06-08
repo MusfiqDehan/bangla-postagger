@@ -114,21 +114,34 @@ def get_nltk_postag(source="", target="", model_path="bert-base-multilingual-cas
 
     nltk_postag_dict = ep.get_nltk_postag_dict(target=target)
 
+    mapped_sent_src = []
     result = []
 
     for i, j in sorted(align_words):
         punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+
         if sent_src[i] in punc or sent_tgt[j] in punc:
+            mapped_sent_src.append(sent_src[i])
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif sent_src[i] not in sent_src:
-            result.append(
-                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
         else:
+            mapped_sent_src.append(sent_src[i])
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({nltk_postag_dict[sent_tgt[j]]})')
 
-    return result
+    unks = list(set(sent_src).difference(set(mapped_sent_src)))
+
+    for word in unks:
+        result.append(
+            f'bn:({word}) -> en:(N/A) -> tag:(UNK)')
+
+    pos_accuracy = ((len(sent_src) - len(unks)) / len(sent_src)) * 100
+
+    # pos_accuracy = ( (len(sent_src) - len(unks)) / len(sent_src) )
+
+    # pos_accuracy = f"PoS Tagging Accuracy = {pos_accuracy:0.2%}"
+
+    return sent_src, mapped_sent_src, unks, result, pos_accuracy
 
 
 # ========================================
@@ -143,21 +156,34 @@ def get_spacy_postag(source="", target="", model_path="bert-base-multilingual-ca
 
     spacy_postag_dict = ep.get_spacy_postag_dict(target=target)
 
+    mapped_sent_src = []
     result = []
 
     for i, j in sorted(align_words):
         punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
+
         if sent_src[i] in punc or sent_tgt[j] in punc:
+            mapped_sent_src.append(sent_src[i])
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-        elif sent_src[i] not in sent_src:
-            result.append(
-                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
         else:
+            mapped_sent_src.append(sent_src[i])
             result.append(
                 f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({spacy_postag_dict[sent_tgt[j]]})')
 
-    return result
+    unks = list(set(sent_src).difference(set(mapped_sent_src)))
+
+    for word in unks:
+        result.append(
+            f'bn:({word}) -> en:(N/A) -> tag:(UNK)')
+
+    pos_accuracy = ((len(sent_src) - len(unks)) / len(sent_src)) * 100
+
+    # pos_accuracy = ( (len(sent_src) - len(unks)) / len(sent_src) )
+
+    # pos_accuracy = f"PoS Tagging Accuracy = {pos_accuracy:0.2%}"
+
+    return sent_src, mapped_sent_src, unks, result, pos_accuracy
 
 
 # ========================================
@@ -172,22 +198,31 @@ def get_flair_postag(source="", target="", model_path="bert-base-multilingual-ca
 
     flair_postag_dict = ep.get_flair_postag_dict(target=target)
 
+    mapped_sent_src = []
     result = []
 
     for i, j in sorted(align_words):
-        mapped_sent_src = []
         punc = r"""!()-[]{}।;:'"\,<>./?@#$%^&*_~"""
-        if sent_src[i] in sent_src:
-            if sent_src[i] in punc or sent_tgt[j] in punc:
-                mapped_sent_src.append(sent_src[i])
-                result.append(
-                    f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
-            else:
-                mapped_sent_src.append(sent_src[i])
-                result.append(
-                    f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
 
-        if sent_src[i] in sent_src and sent_src[i] not in mapped_sent_src:
+        if sent_src[i] in punc or sent_tgt[j] in punc:
+            mapped_sent_src.append(sent_src[i])
             result.append(
-                f'bn:({sent_src[i]}) -> en:(N/A) -> tag:(UNK)')
-    return result
+                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:(PUNC)')
+        else:
+            mapped_sent_src.append(sent_src[i])
+            result.append(
+                f'bn:({sent_src[i]}) -> en:({sent_tgt[j]}) -> tag:({flair_postag_dict[sent_tgt[j]]})')
+
+    unks = list(set(sent_src).difference(set(mapped_sent_src)))
+
+    for word in unks:
+        result.append(
+            f'bn:({word}) -> en:(N/A) -> tag:(UNK)')
+
+    pos_accuracy = ((len(sent_src) - len(unks)) / len(sent_src)) * 100
+
+    # pos_accuracy = ( (len(sent_src) - len(unks)) / len(sent_src) )
+
+    # pos_accuracy = f"PoS Tagging Accuracy = {pos_accuracy:0.2%}"
+
+    return sent_src, mapped_sent_src, unks, result, pos_accuracy
