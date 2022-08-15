@@ -5,14 +5,13 @@ This module produce differerent English PoS Taggers for a given sentence.
 from textblob import TextBlob
 from flair.models import SequenceTagger
 from flair.data import Sentence
-import en_core_web_sm
-import spacy.cli
 import spacy
+from spacy.cli import download
+download("en_core_web_sm")
+import en_core_web_sm
 import nltk
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
-
-spacy.cli.download("en_core_web_sm")
 
 
 # =================================
